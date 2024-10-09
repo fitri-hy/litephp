@@ -1,5 +1,6 @@
-<img src="./public/images/ss.png">
+<img src="./public/assets/images/ss.png">
 
+```
 LitePHP/
 ├── app/
 │   ├── Controllers/
@@ -24,3 +25,4 @@ LitePHP/
 ├── .env
 ├── composer.json
 └── README.md
+```
