@@ -1,7 +1,7 @@
 <?php
 return [
     'app_name' => 'MyFramework',
-	'basePath' => '/assets',
+	'basePath' => '/public/assets',
     'debug' => true,
 ];
 ?>

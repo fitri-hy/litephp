@@ -27,23 +27,18 @@ class Router {
 
     // Dispatch the route based on the URL and method
     public static function dispatch($url, $method) {
-        // Check if the route is registered
         $action = self::$routes[$method][$url] ?? null;
 
         if ($action) {
-            // If route exists, split into controller and method
             [$controller, $method] = $action;
 
             if (class_exists($controller) && method_exists($controller, $method)) {
-                // Call the controller method
                 (new $controller)->$method();
             } else {
-                // Controller or method not found
                 http_response_code(500);
                 echo "Controller or method not found.";
             }
         } else {
-            // If route does not exist, show 404
             self::show404();
         }
     }
@@ -54,10 +49,8 @@ class Router {
         $viewFile = __DIR__ . '/../app/Views/404.php';
 
         if (file_exists($viewFile)) {
-            // Include 404 page if exists
             require $viewFile;
         } else {
-            // Default 404 message
             echo "404 - Page Not Found.";
         }
     }
