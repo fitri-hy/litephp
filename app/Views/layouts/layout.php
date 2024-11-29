@@ -16,7 +16,7 @@
     <meta property="og:type" content="website">
 	
 	<link rel="icon" href="<?= $basePath ?>/images/logo.png" type="image/png">
-    <link rel="stylesheet" href="<?= $basePath ?>/css/style.css">
+    <?php if ($minified): ?><link rel="stylesheet" href="<?= $basePath ?>/css/style.min.css"><?php else: ?><link rel="stylesheet" href="<?= $basePath ?>/css/style.css"><?php endif; ?>
 	<script src="https://cdn.tailwindcss.com"></script>
 
 </head>
@@ -28,6 +28,6 @@
 		<?php include __DIR__ . '/../partials/footer.php'; ?>
     </main>
 
-    <script src="<?= $basePath ?>/js/app.js" defer></script>
+    <?php if ($minified): ?><script src="<?= $basePath ?>/js/app.min.js" defer></script><?php else: ?><script src="<?= $basePath ?>/js/app.js" defer></script><?php endif; ?>
 </body>
 </html>

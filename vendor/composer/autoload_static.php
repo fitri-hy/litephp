@@ -7,6 +7,11 @@ namespace Composer\Autoload;
 class ComposerStaticIniteee8e679456924558f76ce1426ffc7cf
 {
     public static $prefixLengthsPsr4 = array (
+        'M' => 
+        array (
+            'MatthiasMullie\\PathConverter\\' => 29,
+            'MatthiasMullie\\Minify\\' => 22,
+        ),
         'C' => 
         array (
             'Core\\' => 5,
@@ -18,6 +23,14 @@ class ComposerStaticIniteee8e679456924558f76ce1426ffc7cf
     );
 
     public static $prefixDirsPsr4 = array (
+        'MatthiasMullie\\PathConverter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/matthiasmullie/path-converter/src',
+        ),
+        'MatthiasMullie\\Minify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/matthiasmullie/minify/src',
+        ),
         'Core\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core',

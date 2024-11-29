@@ -7,5 +7,7 @@
             "Core\\": "core/"
         }
     },
-    "require": {}
+    "require": {
+        "matthiasmullie/minify": "^1.3"
+    }
 }

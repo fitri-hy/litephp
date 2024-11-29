@@ -1,3 +1,3 @@
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("Halaman telah dimuat.");
+    console.log("Test, Page has been loaded successfully");
 });
