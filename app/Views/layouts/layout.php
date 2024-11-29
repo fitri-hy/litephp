@@ -20,13 +20,13 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 
 </head>
-<body>
+<body class="bg-gray-900 h-screen flex flex-col items-center justify-center text-center text-gray-200">
 
     <?php include __DIR__ . '/../partials/header.php'; ?>
-    <main class="container flex flex-col m-auto pt-16 min-h-[85vh] justify-center items-center">
+    <main class="container m-auto flex flex-col">
         <?= $content ?>
+		<?php include __DIR__ . '/../partials/footer.php'; ?>
     </main>
-    <?php include __DIR__ . '/../partials/footer.php'; ?>
 
     <script src="<?= $basePath ?>/js/app.js" defer></script>
 </body>

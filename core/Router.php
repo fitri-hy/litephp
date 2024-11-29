@@ -46,12 +46,7 @@ class Router {
     // Show 404 error page
     private static function show404() {
         http_response_code(404);
-        $viewFile = __DIR__ . '/../app/Views/404.php';
-
-        if (file_exists($viewFile)) {
-            require $viewFile;
-        } else {
-            echo "404 - Page Not Found.";
-        }
+        $controller = new \App\Controllers\ErrorController();
+        $controller->index();
     }
 }
