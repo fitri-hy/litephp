@@ -3,16 +3,16 @@
 namespace Core;
 
 class View {
-	public static function render($view, $data = []) {
-		extract($data);
+    public static function render($view, $data = []) {
+        extract($data);
 
-		$viewPath = "../app/Views/{$view}.php";
-		error_log("Rendering view: " . $viewPath);
+        $viewFile = __DIR__ . '/../app/Views/' . $view . '.php';
 
-		if (file_exists($viewPath)) {
-			require $viewPath;
-		} else {
-			throw new \Exception("View '{$view}' not found.");
-		}
-	}
+        if (file_exists($viewFile)) {
+            require $viewFile;
+        } else {
+            http_response_code(500);
+            echo "View '$view' not found.";
+        }
+    }
 }

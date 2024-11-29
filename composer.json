@@ -1,13 +1,11 @@
 {
-    "name": "litephp/framework",
-    "description": "LitePHP Framework",
-    "require": {
-        "vlucas/phpdotenv": "^5.6"
-    },
+    "name": "myframework/core",
+    "description": "Framework PHP sederhana",
     "autoload": {
         "psr-4": {
             "App\\": "app/",
             "Core\\": "core/"
         }
-    }
+    },
+    "require": {}
 }

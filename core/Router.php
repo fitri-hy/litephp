@@ -3,36 +3,62 @@
 namespace Core;
 
 class Router {
-    protected $routes = [];
+    private static $routes = [];
 
-    public static function load($file) {
-        $router = new static;
-        require $file;
-        return $router;
+    // Define GET route
+    public static function get($route, $action) {
+        self::$routes['GET'][$route] = $action;
     }
 
-    public function define($routes) {
-        $this->routes = $routes;
+    // Define POST route
+    public static function post($route, $action) {
+        self::$routes['POST'][$route] = $action;
     }
 
-    public function direct($uri, $method) {
-        if (array_key_exists($uri, $this->routes)) {
-            return $this->callAction(
-                ...explode('@', $this->routes[$uri])
-            );
+    // Define PUT route
+    public static function put($route, $action) {
+        self::$routes['PUT'][$route] = $action;
+    }
+
+    // Define DELETE route
+    public static function delete($route, $action) {
+        self::$routes['DELETE'][$route] = $action;
+    }
+
+    // Dispatch the route based on the URL and method
+    public static function dispatch($url, $method) {
+        // Check if the route is registered
+        $action = self::$routes[$method][$url] ?? null;
+
+        if ($action) {
+            // If route exists, split into controller and method
+            [$controller, $method] = $action;
+
+            if (class_exists($controller) && method_exists($controller, $method)) {
+                // Call the controller method
+                (new $controller)->$method();
+            } else {
+                // Controller or method not found
+                http_response_code(500);
+                echo "Controller or method not found.";
+            }
+        } else {
+            // If route does not exist, show 404
+            self::show404();
         }
-
-        throw new \Exception('No route defined for this URI.');
     }
 
-    protected function callAction($controller, $action) {
-        $controller = "App\\Controllers\\{$controller}";
-        $controller = new $controller;
+    // Show 404 error page
+    private static function show404() {
+        http_response_code(404);
+        $viewFile = __DIR__ . '/../app/Views/404.php';
 
-        if (!method_exists($controller, $action)) {
-            throw new \Exception("{$controller} does not respond to the {$action} action.");
+        if (file_exists($viewFile)) {
+            // Include 404 page if exists
+            require $viewFile;
+        } else {
+            // Default 404 message
+            echo "404 - Page Not Found.";
         }
-
-        return $controller->$action();
     }
 }

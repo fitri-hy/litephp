@@ -1,8 +1,6 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
 
-require_once '../vendor/autoload.php';
+use Core\Framework;
 
-use App\Controllers\HomeController;
-
-$controller = new HomeController();
-$controller->index();
+Framework::run();
