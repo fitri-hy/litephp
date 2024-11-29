@@ -5,9 +5,15 @@ Run
 php -S localhost:8000
 ```
 
-Follow
+Open in Browser
 ```
 http://localhost:8000/
+```
+
+Example Route Dynamic
+
+```
+Router::get('/demo/:slug', [DemoController::class, 'index']);
 ```
 
 ```

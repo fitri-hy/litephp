@@ -5,45 +5,49 @@ namespace Core;
 class Router {
     private static $routes = [];
 
-    // Define GET route
     public static function get($route, $action) {
         self::$routes['GET'][$route] = $action;
     }
 
-    // Define POST route
     public static function post($route, $action) {
         self::$routes['POST'][$route] = $action;
     }
 
-    // Define PUT route
     public static function put($route, $action) {
         self::$routes['PUT'][$route] = $action;
     }
 
-    // Define DELETE route
     public static function delete($route, $action) {
         self::$routes['DELETE'][$route] = $action;
     }
 
-    // Dispatch the route based on the URL and method
     public static function dispatch($url, $method) {
-        $action = self::$routes[$method][$url] ?? null;
+        foreach (self::$routes[$method] as $route => $action) {
+            $pattern = self::convertToRegex($route);
 
-        if ($action) {
-            [$controller, $method] = $action;
+            if (preg_match($pattern, $url, $matches)) {
+                array_shift($matches);
 
-            if (class_exists($controller) && method_exists($controller, $method)) {
-                (new $controller)->$method();
-            } else {
-                http_response_code(500);
-                echo "Controller or method not found.";
+                [$controller, $method] = $action;
+
+                if (class_exists($controller) && method_exists($controller, $method)) {
+                    call_user_func_array([new $controller, $method], $matches);
+                    return;
+                } else {
+                    http_response_code(500);
+                    echo "Controller or method not found.";
+                    return;
+                }
             }
-        } else {
-            self::show404();
         }
+
+        self::show404();
     }
 
-    // Show 404 error page
+    private static function convertToRegex($route) {
+        return '#^' . preg_replace('/(:[a-zA-Z0-9_]+)/', '([a-zA-Z0-9_-]+)', $route) . '$#';
+    }
+
     private static function show404() {
         http_response_code(404);
         $controller = new \App\Controllers\ErrorController();
